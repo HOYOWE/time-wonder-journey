@@ -449,7 +449,7 @@
                   <i class="fa fa-instagram"></i>
                 </a>
                 <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
-                  <i class="fa fa-youtube-play"></i>
+                  <i class="fa fa-youtube"></i>
                 </a>
               </div>
             </div>
@@ -2953,7 +2953,7 @@
         id: 'maldives-detail',
         name: '马尔代夫',
         country: '马尔代夫',
-        image: '马尔代夫.png',
+        image: 'img/马尔代夫.png',
         imageAlt: '马尔代夫水上屋',
         rating: '4.9',
         reviews: '6,782 条评价',
@@ -2963,7 +2963,7 @@
         id: 'forbidden-city-detail',
         name: '故宫',
         country: '中国',
-        image: '故宫.jpg',
+        image: 'img/故宫.jpg',
         imageAlt: '北京故宫博物院',
         rating: '4.8',
         reviews: '8,923 条评价',
@@ -2973,7 +2973,7 @@
         id: 'sydney-opera-detail',
         name: '悉尼歌剧院',
         country: '澳大利亚',
-        image: '悉尼歌剧院.png',
+        image: 'img/悉尼歌剧院.png',
         imageAlt: '悉尼歌剧院',
         rating: '4.7',
         reviews: '5,412 条评价',
@@ -2983,7 +2983,7 @@
         id: 'pantheon-detail',
         name: '万神殿',
         country: '意大利',
-        image: '万神殿.png',
+        image: 'img/万神殿.png',
         imageAlt: '罗马万神殿',
         rating: '4.9',
         reviews: '4,789 条评价',
@@ -3398,6 +3398,7 @@
         'eiffel-price-comfort': '210-350美元/天',
         'eiffel-price-luxury': '350美元以上/天',
         'plan-paris-trip': '规划巴黎之旅',
+        'plan-grandcanyon-trip': '规划大峡谷行程',
         'hero-title': '探索世界的每一个角落',
         'hero-subtitle': '发现令人惊叹的景点，体验不同的文化，创造终生难忘的回忆',
         'hero-button': '开始探索',
@@ -4447,11 +4448,24 @@
       // 更新页面标题
       document.title = lang === 'zh' ? '环球旅行 - 探索世界美景' : 'Global Travel - Explore Beautiful Scenery';
 
-      // 翻译页面内容
-      document.querySelectorAll('[data-lang-key]').forEach(element => {
+      // 重新实现翻译逻辑 - 使用单一选择器确保所有元素都被翻译
+      console.log('Attempting to translate all elements with data-lang-key attribute');
+      const allLangElements = document.querySelectorAll('[data-lang-key]');
+      console.log('Found', allLangElements.length, 'elements to translate');
+      
+      allLangElements.forEach(element => {
         const key = element.getAttribute('data-lang-key');
+        
+        // 对于详情页按钮，添加额外的日志和处理
+        if (element.tagName === 'BUTTON' && element.closest('.detail-section')) {
+          console.log('Processing detail section button with key:', key);
+        }
+        
         if (translations[lang] && translations[lang][key]) {
+          console.log('Translating key:', key, 'to:', translations[lang][key]);
           element.textContent = translations[lang][key];
+        } else {
+          console.log('Warning: No translation found for key:', key);
         }
       });
 
